@@ -1,14 +1,13 @@
 package com.focusgate.domain
 
 import com.focusgate.domain.detect.DetectionEvent
-import com.focusgate.domain.model.InterruptConfig
 import com.focusgate.domain.rules.*
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import org.junit.Assert.assertTrue
 
 class RuleEngineTest {
-    private val play = Action.PlayClip(InterruptConfig())
+    private val play = Action.PlayClip()
     private val engine = DefaultRuleEngine(
         listOf(Rule("r", Trigger.AppOpened(), listOf(Condition.Cooldown(60_000)), play)),
     )

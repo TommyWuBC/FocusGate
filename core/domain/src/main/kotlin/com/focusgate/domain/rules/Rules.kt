@@ -15,7 +15,8 @@ sealed interface Condition {
 }
 
 sealed interface Action {
-    data class PlayClip(val config: InterruptConfig) : Action
+    /** [config] null means "use the user's current settings". */
+    data class PlayClip(val config: InterruptConfig? = null) : Action
     // Later: ShowReasonPrompt, HardBlock, DoNothing
 }
 
