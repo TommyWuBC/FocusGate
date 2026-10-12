@@ -39,6 +39,8 @@ class WindowInterruptPresenter @Inject constructor(
             val owner = OverlayOwner()
             val label = appLabel(packageName)
             val view = ComposeView(context).apply {
+                // Cover the app instantly; the first Compose frame can take seconds on a cold start.
+                setBackgroundColor(android.graphics.Color.BLACK)
                 setViewTreeLifecycleOwner(owner)
                 setViewTreeSavedStateRegistryOwner(owner)
                 setViewTreeViewModelStoreOwner(owner)

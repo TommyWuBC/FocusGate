@@ -23,6 +23,9 @@ fun ClipPlayer(uri: String, modifier: Modifier = Modifier) {
     DisposableEffect(player) { onDispose { player.release() } }
     AndroidView(
         modifier = modifier,
-        factory = { PlayerView(it).apply { this.player = player; useController = false } },
+        factory = { ctx ->
+            (android.view.LayoutInflater.from(ctx).inflate(R.layout.clip_player_view, null) as PlayerView)
+                .apply { this.player = player }
+        },
     )
 }

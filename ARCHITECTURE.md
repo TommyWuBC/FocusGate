@@ -1,6 +1,6 @@
-# FocusGate architecture (PROPOSAL, awaiting approval)
+# FocusGate architecture
 
-Status: Milestone 0 draft. No feature code yet.
+Status: approved 2026-10-11; implemented through milestone 7.
 
 ## Principles
 Layered (UI -> domain <- data), dependencies point inward. Domain is pure Kotlin. The AccessibilityService only emits events; decisions live in the domain rule engine.
@@ -40,3 +40,10 @@ v1 implements `AppOpened` + `PlayClip` (+ friction step as an Action sequence). 
 
 ## Decision log
 - 2026-10-11: Proposed multi-module + Hilt + Room. Reason: spec expects large refactors; mechanical boundaries pay off.
+- 2026-10-11: Approved. Deviations from proposal, with reasons:
+  - `core:branding` module replaced by root `branding.properties` (display name + applicationId) read by `app/build.gradle.kts`. Reason: a module for two strings is overkill; still one place to rename.
+  - Clip library and interrupt settings UI live in `feature:overlay` (with the overlay), blocklist UI in `feature:blocker`.
+  - No `build-logic/` convention plugins yet; per-module build files are short. Revisit at ~8 modules.
+  - `InterruptCoordinator` (detection event -> rule engine -> presenter) lives in `core:domain` as pure Kotlin behind ports (`DetectionSource`, `InterruptPresenter`, `HomeNavigator`, `Clock`), wired in `app/CoordinatorModule`.
+  - Added `androidx.datastore` (Jetpack) for settings.
+- Overlay video uses a TextureView-based PlayerView (SurfaceView renders black in overlay windows).

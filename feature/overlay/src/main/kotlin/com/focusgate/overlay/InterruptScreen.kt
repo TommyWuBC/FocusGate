@@ -32,7 +32,7 @@ fun InterruptScreen(
         phase = Phase.Friction
     }
     Box(
-        Modifier.fillMaxSize().background(Color.Black.copy(alpha = 0.96f)).padding(24.dp),
+        Modifier.fillMaxSize().background(Color.Black).padding(24.dp),
         contentAlignment = Alignment.Center,
     ) {
         when (phase) {
